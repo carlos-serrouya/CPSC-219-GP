@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RoutePlannerController">
+   <children>
+      <Label text="Enter your coordinates (must be an integer between 0 and 100):" />
+      <HBox prefHeight="48.0" prefWidth="3608.0" spacing="10.0">
+         <children>
+            <Label text="1st X coordinate" />
+            <TextField prefHeight="31.0" prefWidth="61.0" promptText="0.00" fx:id="xOne" />
+            <Label text="1st Y coordinate" />
+            <TextField fx:id="yOne" promptText="0.00" />
+         </children>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="41.0" prefHeight="49.0" prefWidth="3609.0" spacing="10.0">
+         <children>
+            <Label text="2nd X coordinate" />
+            <TextField prefHeight="31.0" prefWidth="61.0" promptText="0.00" fx:id="xTwo" />
+            <Label text="2nd Y coordinate" />
+            <TextField fx:id="yTwo" promptText="0.00" />
+         </children>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="41.0" prefHeight="60.0" prefWidth="3610.0" spacing="10.0">
+         <children>
+            <Label text="3rd X coordinate" />
+            <TextField prefHeight="31.0" prefWidth="61.0" promptText="0.00" fx:id="xThree" />
+            <Label text="3rd Y coordinate" />
+            <TextField fx:id="yThree" promptText="0.00" />
+         </children>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="41.0" prefHeight="55.0" prefWidth="3612.0" spacing="10.0">
+         <children>
+            <Label text="4th X coordinate" />
+            <TextField prefHeight="31.0" prefWidth="61.0" promptText="0.00" fx:id="xFour" />
+            <Label text="4th Y coordinate" />
+            <TextField fx:id="yFour" promptText="0.00" />
+         </children>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="188.0" prefHeight="55.0" prefWidth="3612.0" spacing="10.0">
+         <children>
+            <Label text="Enter your maximum path length as an integer above 0" />
+            <TextField fx:id="max" prefHeight="31.0" prefWidth="61.0" promptText="0.00" />
+         </children>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#FindRoute" text="Find route">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin></Button>
+   </children>
+</VBox>
