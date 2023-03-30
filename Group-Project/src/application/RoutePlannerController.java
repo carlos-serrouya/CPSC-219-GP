@@ -1,101 +1,109 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.List;
+import javafx.geometry.Point2D;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
 
 public class RoutePlannerController {
 	Stage testStage;
 	
-// all the variables we can pull from the first scene
-    @FXML
-    private TextField xThree;
+	@FXML
+	private Label clickLocationLabel;
+	private int[][] clickLocations = new int[3][4];
+	private int clickCounter = 0;
+	@FXML
+	private TextField max;
+	@FXML
+	private Label maxLengthNumber;
 
-    @FXML
-    private TextField xFour;
+	@FXML
+	public void initialize() {
+		  maxLengthNumber.setText("0");
+	       max.setOnKeyTyped(this::handleMaxKeyTyped);
+	}
+	@FXML
+	private void handleMaxKeyTyped(KeyEvent event) { // updates code in scene to see max length. hoping to use this later for  methods that need it
+	    String maxText = max.getText();
+	    int maxLength = maxText.length();
+	    char typedChar = event.getCharacter().charAt(0);
+	    if (Character.isDigit(typedChar)) {
+	        maxLengthNumber.setText(String.valueOf(maxLength));
+	        //double max1 = Double.parseDouble(maxLengthNumber.getText()); // set max1 to the same value as maxLength
+	    }
+	}
 
-    @FXML
-    private TextField xTwo;
+	@FXML
+	void handleMouseClick(MouseEvent event) {
+	    //int[][] clickLocations = new int[3][4]; // initialize 2D array to store user clicks
+	    // form of the array: the first row contains the X values,
+	    // the second row contains the Y values
+	    // the third row contains the maximum value.
+	    
+	    double x = event.getX();
+	    double y = event.getY();
 
-    @FXML
-    private TextField yOne;
+	    if (clickCounter < 4) {
+	        clickLocations[0][clickCounter] = (int) x;
+	        clickLocations[1][clickCounter] = (int) y;
+	        clickCounter++;
+	    }
 
-    @FXML
-    private TextField yFour;
+	    if (clickCounter == 4) {
+	        double max1 = Double.parseDouble(maxLengthNumber.getText()); // set max1 to the same value as maxLength
+	        clickLocations[2][0] = (int) max1;
+	        // perform calculations using the clickLocations array
+	    
+	    int[] XvalMain = clickLocations[0]; 
+		int[] YvalMain = clickLocations[1];
+	    
+		double maxLengthMain = clickLocations[2][0];
+	    
+	    
+			//defines arrays well need later: note we did i like this so 
+			// so we can eventually do all these operations in a different class
 
-    @FXML
-    private TextField max;
+			GetMagnitudes start = new GetMagnitudes();
+			start.setXval(XvalMain);//so we can use private
+			start.setYval(YvalMain);//parameters
+			double [] magnitudesMain = GetMagnitudes.pythag();
 
-    @FXML
-    private TextField xOne;
-
-    @FXML
-    private TextField yTwo;
-
-    @FXML
-    private TextField yThree;
-
-    @FXML
-    void FindRoute(ActionEvent event) {
-    	int[][] myArray; // converts the user inputs into integers. these are put into a 2d list we can use for the program to run
-        int x1 = Integer.parseInt(xOne.getText());
-        int x2 = Integer.parseInt(xTwo.getText());
-        int x3 = Integer.parseInt(xThree.getText());
-        int x4 = Integer.parseInt(xFour.getText());
-        int y1 = Integer.parseInt(yOne.getText());
-        int y2 = Integer.parseInt(yTwo.getText());
-        int y3 = Integer.parseInt(yThree.getText());
-        int y4 = Integer.parseInt(yFour.getText());
-        int maximum = Integer.parseInt(max.getText());
-        myArray = new int[][] {{x1, x2, x3, x4}, {y1, y2, y3, y4}, {maximum}};
-    	//once the user clicks the button to calculate the route this is where the code will run
-		//define critital arrays for Main class 
-		int[] XvalMain = myArray[0]; 
-		int[] YvalMain = myArray[1];
-		double maxLengthMain = myArray[2][0];
-		//defines arrays well need later: note we did i like this so 
-		// so we can eventually do all these operations in a different class
-
-		GetMagnitudes start = new GetMagnitudes();
-		start.setXval(XvalMain);//so we can use private
-		start.setYval(YvalMain);//parameters
-		double [] magnitudesMain = GetMagnitudes.pythag();
-
-		GetSetOfLists sets = new GetSetOfLists();
-		sets.magnitudes = magnitudesMain;
-		sets.maxLength = maxLengthMain;
-		String [][] setOfListsMain = GetSetOfLists.filter();
+			GetSetOfLists sets = new GetSetOfLists();
+			sets.magnitudes = magnitudesMain;
+			sets.maxLength = maxLengthMain;
+			String [][] setOfListsMain = GetSetOfLists.filter();
 
 
-		PathConnect con = new PathConnect();
-		con.setOfLists = setOfListsMain;
-		String [][]finalSetOfListsMain = PathConnect.connect();
+			PathConnect con = new PathConnect();
+			con.setOfLists = setOfListsMain;
+			String [][]finalSetOfListsMain = PathConnect.connect();
 
-		GetSetOfLengths connected = new GetSetOfLengths();
-		connected.magnitudes = magnitudesMain;
-		connected.setOfLists = finalSetOfListsMain;
-		double[][] finalSetOfLengthsMain = GetSetOfLengths.filterlengths();
+			GetSetOfLengths connected = new GetSetOfLengths();
+			connected.magnitudes = magnitudesMain;
+			connected.setOfLists = finalSetOfListsMain;
+			double[][] finalSetOfLengthsMain = GetSetOfLengths.filterlengths();
 
-		EfficiencyTest test = new EfficiencyTest();
-		test.setOfLists = finalSetOfListsMain;
-		test.setOfLengths = finalSetOfLengthsMain;
-		String[] bestPathsMain = EfficiencyTest.best();
-		System.out.println(Arrays.toString(bestPathsMain));
-		
-		String stringBestPaths = "";
-		for (int i=0 ; i<bestPathsMain.length; i++){
-			stringBestPaths += bestPathsMain[i]+ " ";
-		}
-		
-		
-		Scene displayScene = new Scene(new Label (stringBestPaths));
-		testStage.setScene(displayScene);
-		//displays second scene the set of best paths
-    }
-
+			EfficiencyTest test = new EfficiencyTest();
+			test.setOfLists = finalSetOfListsMain;
+			test.setOfLengths = finalSetOfLengthsMain;
+			String[] bestPathsMain = EfficiencyTest.best();
+			System.out.println(Arrays.toString(bestPathsMain));
+			
+			String stringBestPaths = "";
+			for (int i=0 ; i<bestPathsMain.length; i++){
+				stringBestPaths += bestPathsMain[i]+ " ";
+			}
+			Scene displayScene = new Scene(new Label (stringBestPaths));
+			testStage.setScene(displayScene);
+			//displays second scene the set of best paths
+	    }
+	}
 }
