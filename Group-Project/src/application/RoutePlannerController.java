@@ -1,12 +1,17 @@
 package application;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class RoutePlannerController {
@@ -41,7 +46,7 @@ public class RoutePlannerController {
     private TextField yThree;
 
     @FXML
-    void FindRoute(ActionEvent event) {
+    void FindRoute(ActionEvent event) throws IOException{ 
     	int[][] myArray; // converts the user inputs into integers. these are put into a 2d list we can use for the program to run
         int x1 = Integer.parseInt(xOne.getText());
         int x2 = Integer.parseInt(xTwo.getText());
@@ -91,11 +96,37 @@ public class RoutePlannerController {
 		for (int i=0 ; i<bestPathsMain.length; i++){
 			stringBestPaths += bestPathsMain[i]+ " ";
 		}
-		
-		
-		Scene displayScene = new Scene(new Label (stringBestPaths));
+		Pane pane = new Pane();
+		for (int q=0 ; q<bestPathsMain.length; q++){
+			if (bestPathsMain[q].equals("AB")) {
+			Line line1 = new Line(x1,y1,x2,y2);
+			pane.getChildren().addAll(line1);
+			}
+			if (bestPathsMain[q].equals("AC")) {
+			Line line2 = new Line(x1,y1,x3,y3);
+			pane.getChildren().addAll(line2);
+			}
+			if (bestPathsMain[q].equals("AD")) {
+			Line line3 = new Line(x1,y1,x4,y4);
+			pane.getChildren().addAll(line3);
+			}
+			if (bestPathsMain[q].equals("BC")) {
+			Line line4 = new Line(x2,y2,x3,y3);
+			pane.getChildren().addAll(line4);
+			}
+			if (bestPathsMain[q].equals("BD")) {	
+			Line line5 = new Line(x2,y2,x4,y4);
+			pane.getChildren().addAll(line5);
+			}
+			if (bestPathsMain[q].equals("CD")) {
+			Line line6 = new Line(x3,y3,x4,y4);
+			pane.getChildren().addAll(line6);
+			}
+    }
+		Scene displayScene = new Scene(pane,500,300);
+		//Scene displayScene = new Scene(new Label (stringBestPaths));
 		testStage.setScene(displayScene);
 		//displays second scene the set of best paths
-    }
-
 }
+}
+    
