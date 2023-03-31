@@ -14,13 +14,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
-			
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/InputView.fxml"));
 			RoutePlannerController controller = (RoutePlannerController)loader.getController();
-			controller.testStage = primaryStage;
-			
+			controller.testStage = primaryStage;		
 			Scene scene = new Scene(root,800,800);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("RouteFinder");

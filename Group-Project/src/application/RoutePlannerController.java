@@ -14,7 +14,6 @@ import javafx.scene.input.KeyEvent;
 /** 
  * This controller class takes the 4 locations the user inputs as well as a max length. it then outputs the most efficient path under the maximum length input by the user.
  * @author Romeo Champagne
- *
  */
 public class RoutePlannerController {
 	Stage testStage;
@@ -62,18 +61,21 @@ public class RoutePlannerController {
 		 // getting the double value of the textField entered
 		 double maxLengthMain = Double.parseDouble(max.getText());
 			
-		
+		// sets the x and y values for the calculations we need
 		GetMagnitudes start = new GetMagnitudes();
-		start.setXval(XvalMain);//so we can use private
-		start.setYval(YvalMain);//parameters
+		start.setXval(XvalMain);
+		start.setYval(YvalMain);
+		//calculates the magnitudes of the distances between the points
 		double [] magnitudesMain = GetMagnitudes.pythag();
 
+		// sets the magnitudes and the max length values
 		GetSetOfLists sets = new GetSetOfLists();
 		sets.magnitudes = magnitudesMain;
 		sets.maxLength = maxLengthMain;
+		// gets rid of all paths that are too long
 		String [][] setOfListsMain = GetSetOfLists.filter();
 
-
+		// 
 		PathConnect con = new PathConnect();
 		con.setOfLists = setOfListsMain;
 		String [][]finalSetOfListsMain = PathConnect.connect();
@@ -99,7 +101,7 @@ public class RoutePlannerController {
     }
 
 	/**
-	 * the next 2 methods work together. They are mostly for readibility but also add some complexity. 
+	 * the next 2 methods work together. They are mostly for readability but also add some complexity. 
 	 * The first method sets the number beside the max length input box as 0
 	 * When a key is typed in the box, the MaxKeyTyped method will e called.
 	 */
@@ -148,7 +150,7 @@ public class RoutePlannerController {
 	        clickLocations[1][clickCounter] = (int) y;
 	        clickCounter++;
 	    }
-	    // afe
+	    
 	    if (clickCounter == 4) {
 	        double max1 = Double.parseDouble(maxLengthNumber.getText()); // set max1 to the same value as maxLength
 	        clickLocations[2][0] = (int) max1;
