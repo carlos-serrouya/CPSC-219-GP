@@ -18,7 +18,10 @@ public class Main extends Application {
 			
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/InputView.fxml"));
-			Scene scene = new Scene(root,400,400);
+			RoutePlannerController controller = (RoutePlannerController)loader.getController();
+			controller.testStage = primaryStage;
+			
+			Scene scene = new Scene(root,800,800);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("RouteFinder");
 			primaryStage.show();

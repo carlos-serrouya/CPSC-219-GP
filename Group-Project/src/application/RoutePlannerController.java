@@ -148,7 +148,7 @@ public class RoutePlannerController {
 	        clickLocations[1][clickCounter] = (int) y;
 	        clickCounter++;
 	    }
-	    // after the user has clicked 4 times this will run
+	    // afe
 	    if (clickCounter == 4) {
 	        double max1 = Double.parseDouble(maxLengthNumber.getText()); // set max1 to the same value as maxLength
 	        clickLocations[2][0] = (int) max1;
