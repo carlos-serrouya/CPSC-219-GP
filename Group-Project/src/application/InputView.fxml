@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RoutePlannerController">
+<VBox prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RoutePlannerController">
    <children>
-   	<Label fx:id="clickLocationLabel" text="locations" />
-      <Label text="Click on the image below to set up your points:" />
+   	<Label fx:id="clickLocationLabel" alignment="TOP_CENTER" contentDisplay="TOP" prefHeight="34.0" prefWidth="205.0" text="Location selector" textAlignment="CENTER">
+         <font>
+            <Font size="23.0" />
+         </font></Label>
+      <Label text="Click on the 4 locations you would like to connect" />
       
-      <Pane onMouseClicked="#handleMouseClick" prefHeight="200.0" prefWidth="200.0" />
-      <HBox layoutX="10.0" layoutY="188.0" prefHeight="55.0" prefWidth="3612.0" spacing="10.0">
+      <Pane maxHeight="555.0" maxWidth="555.0" minHeight="555.0" minWidth="555.0" onMouseClicked="#MouseClick" prefHeight="555.0" prefWidth="555.0">
+         <children>
+            <ImageView fitHeight="555.0" fitWidth="555.0" layoutX="14.0" layoutY="-1.0" pickOnBounds="true">
+               <image>
+                  <Image url="file:///C:/Users/CS219-user/git/CPSC-219-GP/Group-Project/src/application/SmallerScaleCalgary.png" />
+               </image>
+            </ImageView>
+         </children>
+         <cursor>
+            <Cursor fx:constant="CROSSHAIR" />
+         </cursor></Pane>
+      <HBox layoutX="10.0" layoutY="188.0" spacing="10.0">
          <children>
             <Label text="Enter your maximum path length as an integer above 0" />
-            <TextField fx:id="max" onKeyTyped="#handleMaxKeyTyped" prefHeight="31.0" prefWidth="61.0" promptText="0.00" />
+            <TextField fx:id="max" onKeyTyped="#MaxKeyTyped" prefHeight="31.0" prefWidth="61.0" promptText="0.00" />
             <Label fx:id="maxLengthNumber" onMouseClicked="#initialize" text="length" />
          </children>
       </HBox>
+      <Button fx:id="findPathButton" mnemonicParsing="false" onMouseClicked="#FindPathButtonClick" text="Find Path" />
    </children>
 </VBox>
