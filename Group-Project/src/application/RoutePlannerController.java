@@ -61,30 +61,29 @@ public class RoutePlannerController {
 		//defines arrays well need later: note we did i like this so 
 		// so we can eventually do all these operations in a different class
 
-		GetMagnitudes start = new GetMagnitudes();
+		FindMagnitudes start = new FindMagnitudes();
 		start.setXval(XvalMain);//so we can use private
 		start.setYval(YvalMain);//parameters
-		double [] magnitudesMain = GetMagnitudes.pythag();
+		double [] magnitudesMain = FindMagnitudes.getPythag();
 
-		GetSetOfLists sets = new GetSetOfLists();
-		sets.magnitudes = magnitudesMain;
-		sets.maxLength = maxLengthMain;
-		String [][] setOfListsMain = GetSetOfLists.filter();
-
+		FindArrayOfLists sets = new FindArrayOfLists();
+		sets.setMagnitudes (magnitudesMain);
+		sets.setMaxLength (maxLengthMain);
+		String [][] arrayOfListsMain = FindArrayOfLists.getFilter();
 
 		PathConnect con = new PathConnect();
-		con.setOfLists = setOfListsMain;
-		String [][]finalSetOfListsMain = PathConnect.connect();
+		con.setArrayOfLists (arrayOfListsMain);
+		String [][]finalSetOfListsMain = PathConnect.getConnect();
 
-		GetSetOfLengths connected = new GetSetOfLengths();
-		connected.magnitudes = magnitudesMain;
-		connected.setOfLists = finalSetOfListsMain;
-		double[][] finalSetOfLengthsMain = GetSetOfLengths.filterlengths();
+		FindArrayOfLengths connected = new FindArrayOfLengths();
+		connected.setMagnitudes(magnitudesMain);
+		connected.setArrayOfLists(finalSetOfListsMain);
+		double[][] finalSetOfLengthsMain = FindArrayOfLengths.getFilterLengths();
 
 		EfficiencyTest test = new EfficiencyTest();
-		test.setOfLists = finalSetOfListsMain;
-		test.setOfLengths = finalSetOfLengthsMain;
-		String[] bestPathsMain = EfficiencyTest.best();
+		test.setArrayOfLists (finalSetOfListsMain);
+		test.setArrayOfLengths (finalSetOfLengthsMain);
+		String[] bestPathsMain = EfficiencyTest.getBest();
 		System.out.println(Arrays.toString(bestPathsMain));
 		
 		String stringBestPaths = "";

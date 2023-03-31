@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 public class PathConnect {
 
-	public static String [][] setOfLists;
+	private static String [][] arrayOfLists;
 
-	public static String[][] connect() {
+	private static String[][] connect() {
   // tests if paths in set of paths in setOfLists are path connected
    // with 4 pts this is easy. every path is path connected if and only if 
     // theres a path going to every point
@@ -14,14 +14,14 @@ public class PathConnect {
     //author Carlos
     
 		String[][] finalSetOfLists = {};
-		int numOfLists = setOfLists.length;
+		int numOfLists = arrayOfLists.length;
 
 		String[] listOfPoints = {"A", "B", "C", "D"};
 		int numOfPoints = listOfPoints.length;
 
 
 		for (int q = 0; q < numOfLists; q++) {
-			String[] paths = setOfLists[q];
+			String[] paths = arrayOfLists[q];
 			int numOfPaths = paths.length;
 
 			//tests every set in 2d array
@@ -55,6 +55,19 @@ public class PathConnect {
 		}
 		return finalSetOfLists;
 
-
+	}
+	public static String[][] getConnect() {
+		return PathConnect.connect();
+		
+	}
+	
+	
+	
+	public void setArrayOfLists(String [][] setArrayOfListsVar) {
+		arrayOfLists = setArrayOfListsVar;
+	}
+	
+	public String [][] getArrayOfLists() {
+		return arrayOfLists;
 	}
 }
