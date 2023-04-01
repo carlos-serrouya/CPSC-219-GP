@@ -1,7 +1,5 @@
 package application;
 
-import java.util.Arrays;
-
 public class EfficiencyTest {
 
 	private static String [][] arrayOfLists;
@@ -12,8 +10,6 @@ public class EfficiencyTest {
 	//and output the most effection path as a string array called bestPaths
 	// Author: Carlos Serrouya
 
-		String[] listOfPoints = {"A", "B", "C", "D"};
-		int numOfPoints = listOfPoints.length;
 		String[] maxPaths = {"AB","AC","AD","BC","BD","CD"};
 		//will be used to define future variables
 		
@@ -24,7 +20,6 @@ public class EfficiencyTest {
 
 		for (int q = 0; q < numOfLists; q++) {
 			String[] paths = arrayOfLists[q];
-			int numOfPaths = paths.length;
 			double[] lengths = arrayOfLengths[q];
 			double efficiency = Double.MAX_VALUE;
 			efficiency = 0;
@@ -36,6 +31,7 @@ public class EfficiencyTest {
 				boolean done = false;
 
 				if (paths.length == 3) {
+					//own method
 					for (int t = 0; t < 3; t++) {
 						efficiency += 3*lengths[t];
 
@@ -46,10 +42,10 @@ public class EfficiencyTest {
 				}
 
 				for (int t = 0; t < paths.length; t++) {
-
+					
+					
+					//own method
 					String direct = "" + startPoint + endPoint; 
-
-
 					if (paths[t].equals(direct)) {
 						//if direct path from start pt to end pt it will always be shortest
 						efficiency += lengths[t];
@@ -70,7 +66,10 @@ public class EfficiencyTest {
 				//can never have A as endPoint
 				if (!done) {
 					for (int t = 0; t < paths.length; t++) {
+						
+						//own method
 						//how many times is the start point in paths
+						
 						if (paths[t].equals(startB)) {
 							count += 1;
 						}
@@ -103,6 +102,9 @@ public class EfficiencyTest {
 				char currentPoint = startPoint;
 
 				if (count == 1 && !done) {
+					
+					//own method
+					
 					//if startpt in path once and no direct path to end
 					//means we have to follow that path	
 
@@ -336,8 +338,4 @@ public class EfficiencyTest {
 	}
 	//getarrayOfLists
 	//getArrayOfLengths
-
-
-
-
 }
