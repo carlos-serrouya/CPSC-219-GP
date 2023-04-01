@@ -1,15 +1,24 @@
 package application;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
 import javafx.scene.input.MouseEvent;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
+
 /** 
  * This controller class takes the 4 locations the user inputs as well as a max length. it then outputs the most efficient path under the maximum length input by the user.
  * @author Romeo Champagne
@@ -17,6 +26,7 @@ import javafx.scene.input.KeyEvent;
 public class RoutePlannerController {
 	Stage testStage;
 	
+
 	@FXML
 	private Label clickLocationLabel;
 	/**
@@ -64,6 +74,24 @@ public class RoutePlannerController {
 		
 		//calculates the magnitudes of the distances between the points
 		FindMagnitudes start = new FindMagnitudes();
+    
+// all the variables we can pull from the first scene
+
+    @FXML
+    void FindRoute(ActionEvent event) throws IOException{ 
+
+        int maximum = Integer.parseInt(max.getText());
+        myArray = new int[][] {{x1, x2, x3, x4}, {y1, y2, y3, y4}, {maximum}};
+    	//once the user clicks the button to calculate the route this is where the code will run
+		//define critital arrays for Main class 
+		int[] XvalMain = myArray[0]; 
+		int[] YvalMain = myArray[1];
+		double maxLengthMain = myArray[2][0];
+		//defines arrays well need later: note we did i like this so 
+		// so we can eventually do all these operations in a different class
+
+		GetMagnitudes start = new GetMagnitudes();
+
 		start.setXval(XvalMain);//so we can use private
 		start.setYval(YvalMain);//parameters
 		double [] magnitudesMain = FindMagnitudes.getPythag();
@@ -92,11 +120,38 @@ public class RoutePlannerController {
 		for (int i=0 ; i<bestPathsMain.length; i++){
 			stringBestPaths += bestPathsMain[i]+ " ";
 		}
-		
-		
-		Scene displayScene = new Scene(new Label (stringBestPaths));
+		Pane pane = new Pane();
+		for (int q=0 ; q<bestPathsMain.length; q++){
+			if (bestPathsMain[q].equals("AB")) {
+			Line line1 = new Line(x1,y1,x2,y2);
+			pane.getChildren().addAll(line1);
+			}
+			if (bestPathsMain[q].equals("AC")) {
+			Line line2 = new Line(x1,y1,x3,y3);
+			pane.getChildren().addAll(line2);
+			}
+			if (bestPathsMain[q].equals("AD")) {
+			Line line3 = new Line(x1,y1,x4,y4);
+			pane.getChildren().addAll(line3);
+			}
+			if (bestPathsMain[q].equals("BC")) {
+			Line line4 = new Line(x2,y2,x3,y3);
+			pane.getChildren().addAll(line4);
+			}
+			if (bestPathsMain[q].equals("BD")) {	
+			Line line5 = new Line(x2,y2,x4,y4);
+			pane.getChildren().addAll(line5);
+			}
+			if (bestPathsMain[q].equals("CD")) {
+			Line line6 = new Line(x3,y3,x4,y4);
+			pane.getChildren().addAll(line6);
+			}
+    }
+		Scene displayScene = new Scene(pane,500,300);
+		//Scene displayScene = new Scene(new Label (stringBestPaths));
 		testStage.setScene(displayScene);
 		//displays second scene the set of best paths
+
     }
 
 
@@ -159,3 +214,4 @@ public class RoutePlannerController {
 		
 	}   
 }
+
