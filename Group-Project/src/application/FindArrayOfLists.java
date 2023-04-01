@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GetSetOfLists {
+public class FindArrayOfLists {
 
-	public static double[] magnitudes;
-	public static double maxLength;
+	private static double[] magnitudes;
+	private static double maxLength;
 
 
-	public static String[][] filter() {
+	private static String[][] filter() {
 	//javadoc: tests to see if the different sets of paths in a powerset follows the
 	//user input restrictions, and filters out some paths that arent connective
 	// Author RomeChampagne
@@ -80,7 +80,6 @@ public class GetSetOfLists {
 
 					if (tempSet[q].equals("AD")) {
 						totalLength += magnitudes[2];
-
 					}
 
 					if (tempSet[q].equals("BC")) {
@@ -89,13 +88,10 @@ public class GetSetOfLists {
 
 					if (tempSet[q].equals("BD")) {
 						totalLength += magnitudes[4];
-
 					}
 
 					if (tempSet[q].equals("CD")) {
 						totalLength += magnitudes[5];
-
-
 					}        			
 				}
 
@@ -116,7 +112,25 @@ public class GetSetOfLists {
 
 		}
 		return setOfLists;
-
-
+	}
+	
+	public static String [][] getFilter(){
+		return FindArrayOfLists.filter();
+	}
+	
+	public void setMagnitudes (double [] setMagnitudesVar){
+		magnitudes = setMagnitudesVar;
+	}
+	
+	public void setMaxLength (double setMaxLengthVar) {
+		maxLength = setMaxLengthVar;
+	}
+	
+	public double [] getMagnitudes () {
+		return magnitudes;
+	}
+	
+	public double getMaxLength () {
+		return maxLength;
 	}
 }

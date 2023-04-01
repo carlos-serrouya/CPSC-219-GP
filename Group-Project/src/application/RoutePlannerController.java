@@ -1,8 +1,7 @@
 package application;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -62,43 +61,45 @@ public class RoutePlannerController {
 		 double maxLengthMain = Double.parseDouble(max.getText());
 			
 		// sets the x and y values for the calculations we need
-		GetMagnitudes start = new GetMagnitudes();
-		start.setXval(XvalMain);
-		start.setYval(YvalMain);
+		
 		//calculates the magnitudes of the distances between the points
-		double [] magnitudesMain = GetMagnitudes.pythag();
+		FindMagnitudes start = new FindMagnitudes();
+		start.setXval(XvalMain);//so we can use private
+		start.setYval(YvalMain);//parameters
+		double [] magnitudesMain = FindMagnitudes.getPythag();
 
-		// sets the magnitudes and the max length values
-		GetSetOfLists sets = new GetSetOfLists();
-		sets.magnitudes = magnitudesMain;
-		sets.maxLength = maxLengthMain;
-		// gets rid of all paths that are too long
-		String [][] setOfListsMain = GetSetOfLists.filter();
+		FindArrayOfLists sets = new FindArrayOfLists();
+		sets.setMagnitudes (magnitudesMain);
+		sets.setMaxLength (maxLengthMain);
+		String [][] arrayOfListsMain = FindArrayOfLists.getFilter();
 
-		// 
 		PathConnect con = new PathConnect();
-		con.setOfLists = setOfListsMain;
-		String [][]finalSetOfListsMain = PathConnect.connect();
+		con.setArrayOfLists (arrayOfListsMain);
+		String [][]finalSetOfListsMain = PathConnect.getConnect();
 
-		GetSetOfLengths connected = new GetSetOfLengths();
-		connected.magnitudes = magnitudesMain;
-		connected.setOfLists = finalSetOfListsMain;
-		double[][] finalSetOfLengthsMain = GetSetOfLengths.filterlengths();
+		FindArrayOfLengths connected = new FindArrayOfLengths();
+		connected.setMagnitudes(magnitudesMain);
+		connected.setArrayOfLists(finalSetOfListsMain);
+		double[][] finalSetOfLengthsMain = FindArrayOfLengths.getFilterLengths();
 
 		EfficiencyTest test = new EfficiencyTest();
-		test.setOfLists = finalSetOfListsMain;
-		test.setOfLengths = finalSetOfLengthsMain;
-		String[] bestPathsMain = EfficiencyTest.best();
+		test.setArrayOfLists (finalSetOfListsMain);
+		test.setArrayOfLengths (finalSetOfLengthsMain);
+		String[] bestPathsMain = EfficiencyTest.getBest();
 		System.out.println(Arrays.toString(bestPathsMain));
 		
 		String stringBestPaths = "";
 		for (int i=0 ; i<bestPathsMain.length; i++){
 			stringBestPaths += bestPathsMain[i]+ " ";
 		}
+		
+		
 		Scene displayScene = new Scene(new Label (stringBestPaths));
 		testStage.setScene(displayScene);
 		//displays second scene the set of best paths
     }
+
+
 
 	/**
 	 * the next 2 methods work together. They are mostly for readability but also add some complexity. 

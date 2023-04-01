@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public class EfficiencyTest {
 
-	public static String [][] setOfLists;
-	public static double[][] setOfLengths;
+	private static String [][] arrayOfLists;
+	private static double[][] arrayOfLengths;
 
-	public static String[] best() {
+	private static String[] best() {
 	//Java doc this class and method will take the set of possible path combinations that follow our previos restrictions
 	//and output the most effection path as a string array called bestPaths
 	// Author: Carlos Serrouya
@@ -19,13 +19,13 @@ public class EfficiencyTest {
 		
 		double bestEfficiency = Double.MAX_VALUE;
 		String[] bestPaths = {"there is no connected path that satisfies the input requirements"}; //will be displayed if no paths fit previous restricions
-		int numOfLists = setOfLists.length;
+		int numOfLists = arrayOfLists.length;
 
 
 		for (int q = 0; q < numOfLists; q++) {
-			String[] paths = setOfLists[q];
+			String[] paths = arrayOfLists[q];
 			int numOfPaths = paths.length;
-			double[] lengths = setOfLengths[q];
+			double[] lengths = arrayOfLengths[q];
 			double efficiency = Double.MAX_VALUE;
 			efficiency = 0;
 			for (int i1 = 0; i1 < maxPaths.length; i1++) {
@@ -311,18 +311,31 @@ public class EfficiencyTest {
 				bestPaths = paths;
 
 			}	 
-
-
-
 		}
-
-
 		return bestPaths;
-
-
+	}
+	
+	public static String [] getBest (){
+		return best();
+	}
+	
+	public void setArrayOfLists(String [][] setArrayOfListsVar){
+		arrayOfLists = setArrayOfListsVar;
+	}
+	
+	public void setArrayOfLengths (double [][] setArrayOfLengthsVar) {
+		arrayOfLengths = setArrayOfLengthsVar;
 	}
 
-
+	public String [][] getArrayOfLists (){
+		return arrayOfLists;
+	}
+	
+	public double [][] getArrayOfLengths (){
+		return arrayOfLengths;
+	}
+	//getarrayOfLists
+	//getArrayOfLengths
 
 
 
