@@ -1,11 +1,15 @@
 package application;
 
-class Point {
+class PointOne {
 	int x;
 	int y;
 	String name;
 }
-
+/**
+ * explain..
+ * @author CS219-user
+ *
+ */
 public class FindMagnitudes {
 
 
@@ -13,8 +17,8 @@ public class FindMagnitudes {
 	private static int[] Yval;
 
 	/**
-	 * Contains a static method pythag() that takes 4 integer arrays Xval and Yval representing the x and y coordinates of 4 points, 
-	 * and returns an array of doubles containing the magnitudes (distances) between every pair of points.
+	 * Contains a static method pythag() that takes 4 integer arrays Xval and Yval representing the x and y coordinates of 4 Points, 
+	 * and returns an array of doubles containing the magnitudes (distances) between every pair of Points.
 	 * Also contains a public static method getPythag() that returns the result of pythag() method.
 	 * Contains getter and setter methods getXval() and setXval() for the Xval array, and getYval() and setYval() for the Yval array.
 	 * Author Natalie Thain
@@ -22,15 +26,15 @@ public class FindMagnitudes {
 	
 	private static double[] pythag() {
 		/**
-		 * Calculates the magnitudes (distances) between every pair of points represented by the Xval and Yval arrays.
-		 * returns An array of doubles containing the magnitudes (distances) between every pair of points.
+		 * Calculates the magnitudes (distances) between every pair of Points represented by the Xval and Yval arrays.
+		 * returns An array of doubles containing the magnitudes (distances) between every pair of Points.
 		 */
-		Point[] newArr = new Point[4];
+		PointOne[] newArr = new PointOne[4];
 
 		char names = 'A';
 		// function where you are given x,y
 		for (int i = 0; i < 4; i++) {
-			newArr[i] = new Point();
+			newArr[i] = new PointOne();
 			newArr[i].x = Xval[i];
 			newArr[i].y = Yval[i];
 			newArr[i].name = names + "";
@@ -57,7 +61,7 @@ public class FindMagnitudes {
 
 	/**
 	 * Returns the result of the pythag() method.
-	 * @return An array of doubles containing the magnitudes (distances) between every pair of points.
+	 * @return An array of doubles containing the magnitudes (distances) between every pair of Points.
 	 */
 	public static double[] getPythag() {
 		return FindMagnitudes.pythag();
@@ -65,7 +69,7 @@ public class FindMagnitudes {
 
 	/**
 	 * Gets the Xval array.
-	 * @return An integer array representing the x coordinates of the 4 points.
+	 * @return An integer array representing the x coordinates of the 4 Points.
 	 */
 	public int[] getXval (){ // getter
 		return Xval;
@@ -73,7 +77,7 @@ public class FindMagnitudes {
 
 	/**
 	 * Gets the Yval array.
-	 * @return An integer array representing the y coordinates of the 4 points.
+	 * @return An integer array representing the y coordinates of the 4 Points.
 	 */
 	public int[] getYval (){ // getter        
 		return Yval;            
