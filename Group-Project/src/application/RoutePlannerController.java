@@ -66,8 +66,15 @@ public class RoutePlannerController {
 		// gets the x and y values from clickLocations
 		 int[] XvalMain = clickLocations[0]; 
 		 int[] YvalMain = clickLocations[1];
-		 
-		 // getting the double value of the textField entered
+		 int x1 = XvalMain[0];
+		 int x2 = XvalMain[1];
+		 int x3 = XvalMain[2];
+		 int x4 = XvalMain[3];
+		 int y1 = YvalMain[0];
+		 int y2 = YvalMain[1];
+		 int y3 = YvalMain[2];
+		 int y4 = YvalMain[3];
+// getting the double value of the textField entered
 		 double maxLengthMain = Double.parseDouble(max.getText());
 			
 		// sets the x and y values for the calculations we need
@@ -77,20 +84,8 @@ public class RoutePlannerController {
     
 // all the variables we can pull from the first scene
 
-    @FXML
-    void FindRoute(ActionEvent event) throws IOException{ 
-
-        int maximum = Integer.parseInt(max.getText());
-        myArray = new int[][] {{x1, x2, x3, x4}, {y1, y2, y3, y4}, {maximum}};
-    	//once the user clicks the button to calculate the route this is where the code will run
-		//define critital arrays for Main class 
-		int[] XvalMain = myArray[0]; 
-		int[] YvalMain = myArray[1];
-		double maxLengthMain = myArray[2][0];
-		//defines arrays well need later: note we did i like this so 
-		// so we can eventually do all these operations in a different class
-
-		GetMagnitudes start = new GetMagnitudes();
+ 
+    	
 
 		start.setXval(XvalMain);//so we can use private
 		start.setYval(YvalMain);//parameters
