@@ -1,5 +1,7 @@
 package application;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
@@ -21,6 +23,11 @@ public class SceneTwo {
 		int y4 = yVal[3];
 		
 		Pane pane = new Pane();
+		Image map = new Image("file:///C:/Users/CS219-user/git/CPSC-219-GP/Group-Project/src/application/SmallerScaleCalgary.png");
+		ImageView iv = new ImageView(map);
+		iv.setFitWidth(555);
+		iv.setFitHeight(555);
+		pane.getChildren().add(iv);
 		for (int q=0 ; q<bestPaths.length; q++){
 			
 			

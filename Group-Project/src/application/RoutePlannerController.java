@@ -59,7 +59,13 @@ public class RoutePlannerController {
 		int[] YvalMain = clickLocations[1];
 		
 		// getting the double value of the textField entered
-		double maxLengthMain = Double.parseDouble(max.getText());
+		double maxLengthMain;
+		try {  
+			 maxLengthMain=Double.parseDouble(max.getText());  
+		  } 
+		catch(NumberFormatException e){  
+		    return;  
+		}
 
 		// sets the x and y values for the calculations we need
 
