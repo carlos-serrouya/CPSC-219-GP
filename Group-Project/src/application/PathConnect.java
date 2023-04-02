@@ -1,18 +1,23 @@
 package application;
 
 import java.util.Arrays;
-
+/**
+ * Author Carlos
+ * The PathConnect class contains methods for testing if paths in a set of paths are path connected.
+ * It provides functionality for determining all the path connected sets in a given set of paths.
+ */
 public class PathConnect {
 
 	private static String [][] arrayOfLists;
 
 	private static String[][] connect() {
-  // tests if paths in set of paths in setOfLists are path connected
-   // with 4 pts this is easy. every path is path connected if and only if 
-    // theres a path going to every point
-    //returns all the path connected sets
-    //author Carlos
-    
+		/**
+		 * The connect method tests if paths in set of paths in arrayOfLists are path connected. If a set of
+		 * paths is path connected, it is added to the finalSetOfLists array. The method returns an array of all
+		 * path connected sets in the set of paths.
+		 * @return An array of all path connected sets in the set of paths.
+		 */
+
 		String[][] finalSetOfLists = {};
 		int numOfLists = arrayOfLists.length;
 
@@ -54,22 +59,33 @@ public class PathConnect {
 			}
 		}
 		return finalSetOfLists;
-
-
 	}
+
+	/**
+	 * The getConnect method returns an array of all path connected sets in the set of paths.
+	 * @return An array of all path connected sets in the set of paths.
+	 */
+
 	public static String[][] getConnect() {
-		return PathConnect.connect();
-		
+		return PathConnect.connect();	
 	}
-	
-	
-	
+
+	/**
+	 * The setArrayOfLists method sets the set of paths to be used for testing path connectivity.
+	 * @param setArrayOfListsVar The set of paths to be used for testing path connectivity.
+	 */
+
 	public void setArrayOfLists(String [][] setArrayOfListsVar) {
 		arrayOfLists = setArrayOfListsVar;
 	}
-	
+
+	/**
+	 * The getArrayOfLists method returns the set of paths to be used for testing path connectivity.
+	 * @return The set of paths to be used for testing path connectivity.
+	 */
+
 	public String [][] getArrayOfLists() {
 		return arrayOfLists;
 	}
-  
+
 }

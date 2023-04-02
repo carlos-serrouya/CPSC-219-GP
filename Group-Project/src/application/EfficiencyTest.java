@@ -1,74 +1,82 @@
 package application;
 
+/**
+ * This class contains a method that will take the set of possible path combinations that follow our previous restrictions
+ * and output the most efficient path as a string array called bestPaths.
+ *
+ * Author: Carlos Serrouya
+ */
+
 public class EfficiencyTest {
 
-	private static String [][] arrayOfLists;
-	private static double[][] arrayOfLengths;
-
-	private static String[] best() {
-	//Java doc this class and method will take the set of possible path combinations that follow our previos restrictions
-	//and output the most effection path as a string array called bestPaths
-	// Author: Carlos Serrouya
-
-		String[] maxPaths = {"AB","AC","AD","BC","BD","CD"};
-		//will be used to define future variables
-		
-		double bestEfficiency = Double.MAX_VALUE;
-		String[] bestPaths = {"there is no connected path that satisfies the input requirements"}; //will be displayed if no paths fit previous restricions
-		int numOfLists = arrayOfLists.length;
+    private static String[][] arrayOfLists;
+    private static double[][] arrayOfLengths;
 
 
-		for (int q = 0; q < numOfLists; q++) {
-			String[] paths = arrayOfLists[q];
-			double[] lengths = arrayOfLengths[q];
-			double efficiency = Double.MAX_VALUE;
-			efficiency = 0;
-			for (int i1 = 0; i1 < maxPaths.length; i1++) {
+    /**
+     * Finds the most efficient path among the set of possible paths.
+     * note that i did break this method up as requested but
+     * each block of code relies on so many previous variables that
+     * breaking it up anymore would actually make the code more complicated
+     * @return The most efficient path as a string array.
+     */
+    private static String[] best() {
 
-				String getPoints = maxPaths[i1];
-				char startPoint = getPoints.charAt(0);
-				char endPoint = getPoints.charAt(1);
-				boolean done = false;
+        String[] maxPaths = {"AB","AC","AD","BC","BD","CD"};
+        // This array defines all possible paths between points A, B, C and D.
 
-				if (paths.length == 3) {
-					//own method
-					for (int t = 0; t < 3; t++) {
-						efficiency += 3*lengths[t];
+        double bestEfficiency = Double.MAX_VALUE;
+        // Initially set the best efficiency to the maximum possible value, to ensure any new value will be smaller.
+        String[] bestPaths = {"There is no connected path that satisfies the input requirements"};
+        // This will be the default value if no paths satisfy the input requirements.
+        int numOfLists = arrayOfLists.length;
 
-					}	
-					break;
-					//basically I figured out that if theres n points and n-1 paths every path times n-1 is the efficiency
-					//adding the previous code means all cases where you have to travel through all 4 pts on the shortest path
-				}
+        for (int q = 0; q < numOfLists; q++) {
+            String[] paths = arrayOfLists[q];
+            double[] lengths = arrayOfLengths[q];
+            double efficiency = Double.MAX_VALUE;
+            // Again, initially set the efficiency to the maximum possible value.
+            efficiency = 0;
+            // The efficiency will be accumulated throughout the loop.
+            for (int i1 = 0; i1 < maxPaths.length; i1++) {
+                String getPoints = maxPaths[i1];
+                char startPoint = getPoints.charAt(0);
+                char endPoint = getPoints.charAt(1);
+                boolean done = false;
+                // This flag is used to determine whether the path from the start to end point has been found.
 
-				for (int t = 0; t < paths.length; t++) {
-					
-					
-					//own method
-					String direct = "" + startPoint + endPoint; 
-					if (paths[t].equals(direct)) {
-						//if direct path from start pt to end pt it will always be shortest
-						efficiency += lengths[t];
-						done = true;
-						break;
-					}
+                if (paths.length == 3) {
+                    // If there are only 3 paths, there can only be one way to travel all 4 points in the shortest path.
+                    efficiency = threePaths(lengths, efficiency);
+                    break;
+                }
 
-				}
-				//case 6 paths is accounted for
+                for (int t = 0; t < paths.length; t++) {
+                    String direct = "" + startPoint + endPoint;
+                    // This is used to compare each path to the direct path from the start to end point.
+                    if (paths[t].equals(direct)) {
+                        // If the path is the direct path, it is always the shortest.
+                        efficiency += lengths[t];
+                        done = true;
+                        break;
+                    }
+                }
 
-				int count = 0;
-				String Astart = "" + "A" + startPoint;
-				String startB = "" + startPoint + "B";
-				String Bstart = "" + "B" + startPoint;
-				String Cstart = "" + "C" + startPoint;
-				String startC = "" + startPoint + "C";
-				String startD = "" + startPoint + "D";
-				//can never have A as endPoint
+                int count = 0;
+                String Astart = "" + "A" + startPoint;
+                String startB = "" + startPoint + "B";
+                String Bstart = "" + "B" + startPoint;
+                String Cstart = "" + "C" + startPoint;
+                String startC = "" + startPoint + "C";
+                String startD = "" + startPoint + "D";
+                // These strings represent the different possible paths from the start point.
+
 				if (!done) {
 					for (int t = 0; t < paths.length; t++) {
 						
-						//own method
-						//how many times is the start point in paths
+						/**
+						 * this block tests how many times is the start point in paths
+						 */
 						
 						if (paths[t].equals(startB)) {
 							count += 1;
@@ -103,14 +111,13 @@ public class EfficiencyTest {
 
 				if (count == 1 && !done) {
 					
-					//own method
-					
 					//if startpt in path once and no direct path to end
 					//means we have to follow that path	
 
 					for (int t = 0; t < paths.length; t++) {
 						//only one of these should be true
-
+						//follows the path from startpt to endpt
+						
 						if (paths[t].equals(Astart)) {
 							efficiency += lengths[t];
 							currentPoint = 'A';
@@ -173,14 +180,15 @@ public class EfficiencyTest {
 
 				if (count == 2 && !done){
 					//tests if there 2 paths to end
-
+					//following code will follow the 2 paths and test which one is shorter
+					
 					char tstPtOne = startPoint;
 					char tstPtTwo = startPoint;
 					double tstOne = Double.MAX_VALUE;
 					double tstTwo = Double.MAX_VALUE;
 
 					for (int t = 0; t < paths.length; t++) {
-						//only one of these should be true
+						//two of these will be true
 
 						if (paths[t].equals(Astart)) {
 							if (tstPtOne == startPoint) {
@@ -316,22 +324,58 @@ public class EfficiencyTest {
 		}
 		return bestPaths;
 	}
+	private static double threePaths(double [] lengths, double efficiency) {
+		for (int t = 0; t < 3; t++) {
+			efficiency += 3*lengths[t];
+		}
+		return efficiency;
+		
+	}
+	
+	/**
+
+	Returns the best value from the best() method.
+	@return a String array containing the best paths.
+	*/
 	
 	public static String [] getBest (){
 		return best();
 	}
 	
+	/**
+
+	Sets the 2D array of Strings to the provided value.
+	@param setArrayOfListsVar a 2D array of Strings to be set.
+	*/
+	
 	public void setArrayOfLists(String [][] setArrayOfListsVar){
 		arrayOfLists = setArrayOfListsVar;
 	}
+	
+	/**
+	Sets the 2D array of doubles to the provided value.
+	@param setArrayOfLengthsVar a 2D array of doubles to be set.
+	*/
 	
 	public void setArrayOfLengths (double [][] setArrayOfLengthsVar) {
 		arrayOfLengths = setArrayOfLengthsVar;
 	}
 
+	/**
+	 * getter method
+	Returns the 2D array of Strings.
+	@return a 2D array of Strings.
+	*/
+	
 	public String [][] getArrayOfLists (){
 		return arrayOfLists;
 	}
+	
+	/**
+	 * getter method
+	Returns the 2D array of doubles.
+	@return a 2D array of doubles.
+	*/
 	
 	public double [][] getArrayOfLengths (){
 		return arrayOfLengths;
