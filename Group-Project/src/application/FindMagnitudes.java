@@ -23,7 +23,7 @@ public class FindMagnitudes {
 	 * Contains getter and setter methods getXval() and setXval() for the Xval array, and getYval() and setYval() for the Yval array.
 	 * Author Natalie Thain
 	 */
-	
+
 	private static double[] pythag() {
 		/**
 		 * Calculates the magnitudes (distances) between every pair of Points represented by the Xval and Yval arrays.
