@@ -3,12 +3,15 @@ package application;
 import java.util.Arrays;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /** 
  * This controller class takes the 4 locations the user inputs as well as a max length. it then outputs the most efficient path under the maximum length input by the user.
@@ -27,7 +30,6 @@ public class RoutePlannerController {
 	 */
 	private int[][] clickLocations = new int[3][4];
 
-
 	/**
 	 * tracks how many clicks have happened so far
 	 */
@@ -44,8 +46,39 @@ public class RoutePlannerController {
 	 */
 	@FXML
 	private Label maxLengthNumber;
+	
+	@FXML
+	private Label errorDisplay;
+	
+	@FXML
+	private Label clickErrors;
+	
+	
+	@FXML
+	private  Button findPathButton;
+	
+	//private BooleanProperty enableButton = new SimpleBooleanProperty(false);
+	
+    
+	public void changeErrorDisplay(String message) {
+	    errorDisplay.setText(message);
+	}
+	
+	
+	public void changeclickErrors(String message) {
+		clickErrors.setText(message);
+	}
 
-
+	public void keyReleasedProperty() {
+		String errorText = errorDisplay.getText();
+	    String clickErrorsText = clickErrors.getText();
+		boolean isDisabled = (!(errorText.equals("Proper max length") && clickErrorsText.equals("locations are ok")));
+				
+				//errorText.equals("Error: Not a positive number") || errorText.equals("Error: Not a number") || clickErrorsText.equals("not enough location inputs")
+				//|| clickErrorsText.equals("") || errorText.equals(""));
+		findPathButton.setDisable(isDisabled);
+	}
+	
 	/**
 	 * This method is called when the "Find Path" button is clicked on the GUI.
 	 * It gets the x and y values of the clicks from clickLocations and 
@@ -54,6 +87,7 @@ public class RoutePlannerController {
 	 */
 	@FXML
 	public void FindPathButtonClick() {
+		
 		// gets the x and y values from clickLocations
 		int[] XvalMain = clickLocations[0]; 
 		int[] YvalMain = clickLocations[1];
@@ -73,9 +107,6 @@ public class RoutePlannerController {
 		FindMagnitudes start = new FindMagnitudes();
 
 		// all the variables we can pull from the first scene
-
-
-
 
 		start.setXval(XvalMain);//so we can use private
 		start.setYval(YvalMain);//parameters
@@ -114,8 +145,6 @@ public class RoutePlannerController {
 
 	}
 
-
-
 	/**
 	 * the next 2 methods work together. They are mostly for readability but also add some complexity. 
 	 * The first method sets the number beside the max length input box as 0
@@ -124,11 +153,28 @@ public class RoutePlannerController {
 
 	@FXML
 	public void initialize() {
-
+		findPathButton.setDisable(true);
 		maxLengthNumber.setText("0");
 		max.setOnKeyTyped(this::MaxKeyTyped);
+		// Add a listener to the max text field
+	    max.textProperty().addListener((observable, oldValue, newValue) -> {
+	        try {
+	            int num = Integer.parseInt(newValue);
+	            if (num > 0) {
+	                changeErrorDisplay("Proper max length");
+	                //findPathButton.setDisable(false);   // enable the button
+	            } else {
+	                changeErrorDisplay("Error: Not a positive number");
+	                //findPathButton.setDisable(true);
+	            }
+	        } catch (NumberFormatException e) {
+	            changeErrorDisplay("Error: Not a number");
+	            //findPathButton.setDisable(true);
+	        }
+	    });
+	    	
+	
 	}
-
 	/**
 	 * When key is typed in the max length box, this method is called. 
 	 * It will update the wording beside the maxLength input box to show what the user has input.
@@ -147,7 +193,7 @@ public class RoutePlannerController {
 		}
 	}
 	/**
-	 * The method is important. It is called when the user clicks on the map on the first scene.
+	 * The method is called when the user clicks on the map on the first scene.
 	 * As the user selects the location of their points on the map, the method is 
 	 * called an will update the clickLocations array. 
 	 * It does this until it has counted 4 clicks by the user.
@@ -165,13 +211,16 @@ public class RoutePlannerController {
 			clickLocations[0][clickCounter] = (int) x;
 			clickLocations[1][clickCounter] = (int) y;
 			clickCounter++;
+			changeclickErrors("not enough location inputs");
+			//findPathButton.setDisable(true);
 		}
-
-		if (clickCounter == 4) {
 			double max1 = Double.parseDouble(maxLengthNumber.getText()); // set max1 to the same value as maxLength
 			clickLocations[2][0] = (int) max1;
-		}
-
-	}   
+			
+		
+		if (clickCounter == 4) {
+				changeclickErrors ("locations are ok");
+				//findPathButton.setDisable(false);
+		}   
+	}
 }
-
