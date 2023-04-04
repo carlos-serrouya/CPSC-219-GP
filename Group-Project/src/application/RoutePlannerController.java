@@ -3,6 +3,7 @@ package application;
 import java.util.Arrays;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -59,11 +60,20 @@ public class RoutePlannerController {
 		int[] YvalMain = clickLocations[1];
 		
 		// getting the double value of the textField entered
+		/**
+		 * This code tries to convert the text entered in the 'max' TextField to a double value.
+		 * If the text cannot be converted to a double, an error message is displayed in an alert box.
+		 */
 		double maxLengthMain;
-		try {  
-			 maxLengthMain=Double.parseDouble(max.getText());  
-		  } 
+		try {
+		    // Attempt to parse the text in the 'max' TextField as a double value
+		    maxLengthMain = Double.parseDouble(max.getText());  
+		} 
 		catch(NumberFormatException e){  
+		    // If the text cannot be converted to a double, display an error message in an alert box and return from the method
+		    Alert alert = new Alert(Alert.AlertType.ERROR);
+		    alert.setHeaderText("Please enter a valid number for the maximum length.");
+		    alert.showAndWait();
 		    return;  
 		}
 
