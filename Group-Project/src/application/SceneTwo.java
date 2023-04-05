@@ -1,10 +1,16 @@
 package application;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 
 public class SceneTwo {
 	
@@ -38,10 +44,10 @@ public class SceneTwo {
 		
 		// Add the map to the pane using an ImageView object
 		Image map = new Image("file:///C:/Users/CS219-user/git/CPSC-219-GP/Group-Project/src/application/SmallerScaleCalgary.png");
-		ImageView iv = new ImageView(map);
-		iv.setFitWidth(555);
-		iv.setFitHeight(555);
-		pane.getChildren().add(iv);
+		ImageView picture = new ImageView(map);
+		picture.setFitWidth(555);
+		picture.setFitHeight(555);
+		pane.getChildren().add(picture);
 		
 		// Draw the optimal routes between the points using Line objects
 		for (int q=0 ; q<bestPaths.length; q++){
@@ -80,9 +86,12 @@ public class SceneTwo {
 			}
 			//if no routes can be create prints on error message to the user  
 			if (!lineCreated) {
-			    Alert alert = new Alert(Alert.AlertType.ERROR);
-			    alert.setHeaderText("Unable to create a route with given information.");
-			    alert.showAndWait();
+				Label alert = new Label();
+				alert.setText("Unable to connet points with given max length");
+				alert.setFont(new Font(29)); // set the font size to 20
+				alert.setTextFill(Color.BLUE);
+				pane.getChildren().add(alert);
+
 			}
 		}
 		

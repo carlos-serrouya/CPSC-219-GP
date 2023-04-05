@@ -90,7 +90,7 @@ public class RoutePlannerController {
 	public void keyReleasedProperty() {
 		String errorText = errorDisplay.getText();
 	    String clickErrorsText = clickErrors.getText();
-		boolean isDisabled = (!(errorText.equals("Proper max length") && clickErrorsText.equals("locations are ok")));
+		boolean isDisabled = (!(errorText.equals("Proper max length") && clickErrorsText.equals("locations are set")));
 		findPathButton.setDisable(isDisabled);
 	}
 	
@@ -129,7 +129,7 @@ public class RoutePlannerController {
 		start.setYval(YvalMain);
 		// array of doubles with the distances between points
 		double [] magnitudesMain = FindMagnitudes.getPythag();
-
+		
 		//makes an object for the FindArrayofLists class
 		FindArrayOfLists sets = new FindArrayOfLists();
 		sets.setMagnitudes (magnitudesMain); //setting magnitudes to the object
@@ -160,7 +160,7 @@ public class RoutePlannerController {
 		display.setYval(YvalMain);
 		display.setBestPaths(bestPathsMain);
 		Pane paneMain = SceneTwo.getPane();
-		Scene displayScene = new Scene(paneMain,800,800);
+		Scene displayScene = new Scene(paneMain,600,600);
 		testStage.setScene(displayScene);
 		//shows the second scene with the best paths illustrated
 
@@ -184,7 +184,7 @@ public class RoutePlannerController {
 	                changeErrorDisplay("Proper max length"); // needs the value to be above 0 and a number
 	                
 	            } else {
-	                changeErrorDisplay("Error: Not a positive number"); // input was negative or 0
+	                changeErrorDisplay("Error: Not a positive integer"); // input was negative or 0
 	                
 	            }
 	        } catch (NumberFormatException e) {
@@ -229,7 +229,7 @@ public class RoutePlannerController {
 			clickLocations[0][clickCounter] = (int) x;
 			clickLocations[1][clickCounter] = (int) y;
 			clickCounter++;
-			changeclickErrors("not enough location inputs"); // error handling due to not enough points put into the system
+			changeclickErrors("Add more locations"); // error handling due to not enough points put into the system
 			
 		}
 			double max1 = Double.parseDouble(maxLengthNumber.getText()); // set max1 to the same value as maxLength
@@ -237,7 +237,7 @@ public class RoutePlannerController {
 			
 		
 		if (clickCounter == 4) {
-				changeclickErrors ("locations are ok");
+				changeclickErrors ("locations are set");
 				//this is for error handling, once we have 4 clicks it will show this
 		}   
 	}

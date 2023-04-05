@@ -34,7 +34,7 @@ public class Main extends Application {
 			VBox root = loader.load(new FileInputStream("src/application/InputView.fxml"));
 			RoutePlannerController controller = (RoutePlannerController)loader.getController();
 			controller.testStage = primaryStage;		
-			Scene scene = new Scene(root,800,800);
+			Scene scene = new Scene(root,600,700);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("RouteFinder");
 			primaryStage.show();

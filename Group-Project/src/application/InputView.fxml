@@ -30,7 +30,7 @@
          </cursor></Pane>
       <HBox layoutX="10.0" layoutY="188.0" spacing="10.0">
          <children>
-            <Label text="Enter your maximum path length as an integer above 0" />
+            <Label text="Enter your maximum path length (in meters) as an integer above 0" />
             <TextField fx:id="max" onKeyPressed="#keyReleasedProperty" onKeyReleased="#keyReleasedProperty" onKeyTyped="#MaxKeyTyped" prefHeight="31.0" prefWidth="61.0" promptText="0.00" />
             <Label fx:id="maxLengthNumber" onKeyReleased="#keyReleasedProperty" onMouseClicked="#initialize" text="length" />
          </children>
