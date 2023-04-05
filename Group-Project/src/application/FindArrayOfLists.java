@@ -25,8 +25,11 @@ public class FindArrayOfLists {
 
 	private static String[][] filter() {
 
+		double conversion = 46.855462;
+		maxLength = maxLength/conversion; //converts maxLength from inputted meters to pixels
+		
 		String [][] powerSetArray = powerSet();
-
+		
 		String [][] setOfLists = {};
 
 		for (int t = 0; t < powerSetArray.length; t++) {
