@@ -15,9 +15,9 @@
          <font>
             <Font size="23.0" />
          </font></Label>
-      <Label text="Click on the 4 locations you would like to connect" />
+      <Label prefHeight="17.0" prefWidth="487.0" text="Click on the 4 locations you would like to connect. The map is 25770.5m by 25770.5m" />
       
-      <Pane maxHeight="555.0" maxWidth="555.0" minHeight="555.0" minWidth="555.0" onMouseClicked="#MouseClick"  onMouseReleased="#keyReleasedProperty" prefHeight="555.0" prefWidth="555.0">
+      <Pane maxHeight="555.0" maxWidth="555.0" minHeight="555.0" minWidth="555.0" onMouseClicked="#MouseClick" onMouseReleased="#keyReleasedProperty" prefHeight="555.0" prefWidth="555.0">
          <children>
             <ImageView fitHeight="555.0" fitWidth="555.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
                <image>
