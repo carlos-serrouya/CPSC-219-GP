@@ -6,8 +6,7 @@ We Ran in to some issues as previous iterations of our project were not javafx p
 This caused some issues when getting code ont ecclipse and a Ta suggested it would be easiest to start a new 
 repository. You can find our old repository in previos submission or by this link
 : https://github.com/labrat57/CPSC-project.git
-We also noticed that since were using ecclipse from the virtual desktop to commit changes all commits come from CPSC-219 but we are all regularly commiting and pushing
-To see what everyone is working on see the author for each class.
+We also noticed that since were using ecclipse from the virtual desktop to commit changes all commits come from CPSC-219 and Romeos commits come from "Jessica Minshull" and we couldnt Firgure out why. but we are all regularly commiting and pushing. To see what everyone is working on see the author for each class.
 
 Efficient Point Mapping System
 
